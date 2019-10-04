@@ -9,14 +9,71 @@ namespace WordCounter.Tests
   public class CounterTest
   {
     [TestMethod]
-    public void CharValue_ReturnsCountOfAGivenCharacter_StringA()
+    public void WordMatch_ReturnsWhetherPhraseMatchesWord_BoolTrue()
     {
-        Arrange
-        WordCounterCalc wordCounter = new WordCounterCalc("an apple is a fruit");
+        // Arrange
+        WordCounterCalc wordCounter = new WordCounterCalc("pat", "pat");
         // Act
-        int actual = wordCounter.count('a');
+        bool actual = wordCounter.WordMatch();
         // Assert
-        Assert.AreEqual(1, actual);
+        Assert.AreEqual(true, actual);
     }
+
+    [TestMethod]
+    public void WordMatch_ReturnsWhetherPhraseMatchesWord_BoolFalse()
+    {
+        // Arrange
+        WordCounterCalc wordCounter = new WordCounterCalc("hat", "pat");
+        // Act
+        bool actual = wordCounter.WordMatch();
+        // Assert
+        Assert.AreEqual(false, actual);
+    }
+
+    [TestMethod]
+    public void PhraseContains_ReturnsWhetherPhraseContainsWord_BoolTrue()
+    {
+        // Arrange
+        WordCounterCalc wordCounter = new WordCounterCalc("this", "this place");
+        // Act
+        bool actual = wordCounter.PhraseContains();
+        // Assert
+        Assert.AreEqual(true, actual);
+    }
+
+    [TestMethod]
+    public void PhraseContains_ReturnsWhetherPhraseContainsWord_BoolFalse()
+    {
+        // Arrange
+        WordCounterCalc wordCounter = new WordCounterCalc("this", "that place");
+        // Act
+        bool actual = wordCounter.PhraseContains();
+        // Assert
+        Assert.AreEqual(false, actual);
+    }  
+
+    [TestMethod]
+    public void PhraseContains_CountValueisIncreasedByMatches_Int2()
+    {
+        // Arrange
+        WordCounterCalc wordCounter = new WordCounterCalc("an", "an apple, an orange");
+        // Act
+        wordCounter.PhraseContains();
+        int actual = wordCounter.Count;
+        // Assert
+        Assert.AreEqual(2, actual);
+    }
+
+    [TestMethod]
+    public void PhraseContains_CountValueIgnoresPartialMatches_Int2()
+    {
+        // Arrange
+        WordCounterCalc wordCounter = new WordCounterCalc("an", "an apple and an orange");
+        // Act
+        wordCounter.PhraseContains();
+        int actual = wordCounter.Count;
+        // Assert
+        Assert.AreEqual(2, actual);
+    }     
   }
 }
