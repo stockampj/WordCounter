@@ -14,7 +14,7 @@ namespace WordCounter.Tests
         // Arrange
         WordCounterCalc wordCounter = new WordCounterCalc("pat", "pat");
         // Act
-        bool actual = wordCounter.WordMatch();
+        bool actual = wordCounter.WordMatch("pat", "pat");
         // Assert
         Assert.AreEqual(true, actual);
     }
@@ -25,7 +25,7 @@ namespace WordCounter.Tests
         // Arrange
         WordCounterCalc wordCounter = new WordCounterCalc("hat", "pat");
         // Act
-        bool actual = wordCounter.WordMatch();
+        bool actual = wordCounter.WordMatch("hat", "pat");
         // Assert
         Assert.AreEqual(false, actual);
     }
@@ -74,6 +74,29 @@ namespace WordCounter.Tests
         int actual = wordCounter.Count;
         // Assert
         Assert.AreEqual(2, actual);
-    }     
+    }
+    
+    [TestMethod]
+    public void WordMatch_AccountsForCapitals_Int2()
+    {
+        // Arrange
+        WordCounterCalc wordCounter = new WordCounterCalc("an", "An apple and an orange");
+        // Act
+        wordCounter.PhraseContains();
+        int actual = wordCounter.Count;
+        // Assert
+        Assert.AreEqual(2, actual);
+    } 
+
+    [TestMethod]
+    public void CharacterCleaner_IgnoresSpecialCharacters_StringCant()
+    {
+        // Arrange
+        WordCounterCalc wordCounter = new WordCounterCalc("", "");
+        // Act
+        string actual = wordCounter.CharacterCleaner("can't");
+        // Assert
+        Assert.AreEqual("cant", actual);
+    } 
   }
 }
