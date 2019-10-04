@@ -97,6 +97,18 @@ namespace WordCounter.Tests
         string actual = wordCounter.CharacterCleaner("can't");
         // Assert
         Assert.AreEqual("cant", actual);
+    }
+
+    [TestMethod]
+    public void CharacterCleaner_IgnoresSpecialCharacters_Int1()
+    {
+        // Arrange
+        WordCounterCalc wordCounter = new WordCounterCalc("cant", "I can't");
+        // Act
+        wordCounter.PhraseContains();
+        int actual = wordCounter.Count;
+        // Assert
+        Assert.AreEqual(1, actual);
     } 
   }
 }

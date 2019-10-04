@@ -20,7 +20,7 @@ namespace WordCounter.Models
 
     public bool WordMatch(string comparisonWord, string evaluatedWord)
     {
-      if (comparisonWord == evaluatedWord)
+      if (comparisonWord.ToLower() == evaluatedWord.ToLower())
       {
         return true;
       }
@@ -34,7 +34,7 @@ namespace WordCounter.Models
     {
       List<char> acceptedCharacters = new List<char> {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
       string output = "";
-      char[] wordArray = wordToBeCleaned.ToCharArray();
+      char[] wordArray = wordToBeCleaned.ToLower().ToCharArray();
       foreach (char character in wordArray)
         {
           if (acceptedCharacters.Contains(character))
@@ -49,9 +49,11 @@ namespace WordCounter.Models
     {
       bool PhraseContainsWord = false;
       string[] phraseSplit = Phrase.Split(' ');
+      string wordToMatch = CharacterCleaner(Word);
       foreach (string wordInPhrase in phraseSplit)
       {
-        if (WordMatch(Word.ToLower(), wordInPhrase.ToLower()))
+        string wordInPhraseCleaned = CharacterCleaner(wordInPhrase);
+        if (WordMatch(wordToMatch, wordInPhraseCleaned))
         {
           PhraseContainsWord = true;
           Count++;
