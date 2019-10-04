@@ -11,11 +11,10 @@ namespace WordCounter.Tests
     [TestMethod]
     public void CharValue_ReturnsCountOfAGivenCharacter_StringA()
     {
-        // Arrange
-        WordCounter wordCounter = new WordCounter("an apple is a fruit");
+        Arrange
+        WordCounterCalc wordCounter = new WordCounterCalc("an apple is a fruit");
         // Act
         int actual = wordCounter.count('a');
-
         // Assert
         Assert.AreEqual(1, actual);
     }
