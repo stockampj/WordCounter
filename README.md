@@ -1,4 +1,4 @@
-# _Pierre's Bakery_
+# _WordCounter_
 
 #### _This app was created to test basic C# methods and the testing framework of .Net_
 
